@@ -15,7 +15,18 @@ export const DallE3Interface: FC = () => {
   const onSubmit: SubmitHandler<TextPromptFormInputs> = async (data) => {
     try {
       setIsExecuting(true);
-      setImageUrl("https://picsum.photos/300/300");
+      const response = await fetch("/api/open-ai/dall-e-v3", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result = await response.json();
+      setImageUrl(result.srcUrl);
     } catch (error) {
       console.error("Fetch error:", error);
       setImageUrl(null);
