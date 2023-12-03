@@ -7,6 +7,7 @@ export const HomeTemplate: FC = () => {
     <main className="flex h-screen w-screen justify-center items-center">
       <div className="flex justify-center w-full">
         <GptV3_5TurboInterface />
+        <DallE3Interface />
       </div>
     </main>
   );
