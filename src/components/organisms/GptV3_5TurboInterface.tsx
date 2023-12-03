@@ -35,13 +35,13 @@ export const GptV3_5TurboInterface: FC = () => {
   };
 
   return (
-    <div className="w-full max-w-md flex-col flex gap-2 flex-wrap border-2 border-gray-300 rounded-md p-4 justify-center m-4">
+    <div className="w-full max-w-md flex-col flex gap-2 flex-wrap border-2 border-gray-300 rounded-md p-4 justify-start m-4">
       <Typography level="h2">GPT-3 5 Turbo</Typography>
       <TextPromptForm onSubmit={onSubmit} isExecuting={isExecuting} />
       <div className="flex flex-col gap-2 w-full">
         <FormControl>
           <FormLabel>Answer</FormLabel>
-          <Textarea minRows={6} disabled value={answer} />
+          <Textarea maxRows={8} minRows={8} disabled value={answer} />
         </FormControl>
       </div>
     </div>
