@@ -1,6 +1,6 @@
-import { FormForGptV3_5Turbo } from "@/components/organisms/FormForGptV3_5Turbo";
+import { GptV3_5TurboInterface } from "@/components/organisms/GptV3_5TurboInterface";
 import { FC } from "react";
 
 export const HomeTemplate: FC = () => {
-  return <FormForGptV3_5Turbo />;
+  return <GptV3_5TurboInterface />;
 };
