@@ -1,6 +1,6 @@
 "use client";
 import { Button, FormControl, FormLabel, Textarea, Typography } from "@mui/joy";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
@@ -9,8 +9,19 @@ type Inputs = {
 
 export const FormForGptV3_5Turbo: FC = () => {
   const { handleSubmit, control } = useForm<Inputs>();
+  const [answer, setAnswer] = useState<string>("");
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const res = await fetch("/api/open-ai/gpt-v3-5-turbo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const { answer } = await res.json();
+    setAnswer(answer);
+  };
 
   return (
     <div className="w-full max-w-md flex-col flex gap-2 flex-wrap border-2 border-gray-300 rounded-md p-4 justify-center m-4">
@@ -42,7 +53,7 @@ export const FormForGptV3_5Turbo: FC = () => {
       <div className="flex flex-col gap-2 w-full">
         <FormControl>
           <FormLabel>Answer</FormLabel>
-          <Textarea minRows={6} disabled />
+          <Textarea minRows={6} disabled value={answer} />
         </FormControl>
       </div>
     </div>
