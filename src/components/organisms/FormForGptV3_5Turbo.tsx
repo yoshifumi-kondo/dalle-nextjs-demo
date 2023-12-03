@@ -10,8 +10,10 @@ type Inputs = {
 export const FormForGptV3_5Turbo: FC = () => {
   const { handleSubmit, control } = useForm<Inputs>();
   const [answer, setAnswer] = useState<string>("");
+  const [isExecuting, setIsExecuting] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsExecuting(true);
     const res = await fetch("/api/open-ai/gpt-v3-5-turbo", {
       method: "POST",
       headers: {
@@ -21,6 +23,7 @@ export const FormForGptV3_5Turbo: FC = () => {
     });
     const { answer } = await res.json();
     setAnswer(answer);
+    setIsExecuting(false);
   };
 
   return (
@@ -46,7 +49,7 @@ export const FormForGptV3_5Turbo: FC = () => {
             </FormControl>
           )}
         />
-        <Button variant="outlined" type="submit">
+        <Button variant="outlined" type="submit" loading={isExecuting}>
           Execute
         </Button>
       </form>
