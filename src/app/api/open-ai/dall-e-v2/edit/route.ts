@@ -1,4 +1,4 @@
-import { generateImageWithDallE3 } from "@/services/open-ai";
+import { editImageWithDallE2 } from "@/services/open-ai";
 
 export async function POST(req: Request) {
   const { textPrompt } = await req.json();
@@ -10,6 +10,6 @@ export async function POST(req: Request) {
     );
   }
 
-  const srcUrl = await generateImageWithDallE3(textPrompt);
+  const srcUrl = await editImageWithDallE2(textPrompt);
   return new Response(JSON.stringify({ srcUrl }), { status: 200 });
 }
