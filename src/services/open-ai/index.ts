@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { convertToPngRGBA } from "@/utils/imageConverter";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -21,6 +22,20 @@ export const generateImageWithDallE3 = async (textPrompt: string) => {
     prompt: textPrompt,
     n: 1,
     size: "1024x1024",
+  });
+  return response.data[0].url;
+};
+
+export const editImageWithDallE2 = async (textPrompt: string) => {
+  const image = await convertToPngRGBA("./public/original.png");
+  const mask = await convertToPngRGBA("./public/mask.png");
+  const response = await openai.images.edit({
+    image,
+    prompt: textPrompt,
+    n: 1,
+    mask,
+    model: "dall-e-2",
+    size: "512x512",
   });
   return response.data[0].url;
 };
